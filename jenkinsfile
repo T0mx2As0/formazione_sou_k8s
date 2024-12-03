@@ -26,7 +26,7 @@ pipeline {
 
     environment {
         DOCKER_REGISTRY = 'docker.io/t0mx2as0'
-        DOCKER_IMAGE_NAME = 'myapp'
+        DOCKER_IMAGE_NAME = 't0mx2as0/modulo_form'
         DOCKER_BUILD_TAG = "${env.BUILD_ID}"
     }
 
