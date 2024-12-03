@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_REGISTRY = 'docker.io/t0mx2as0'
+        DOCKER_IMAGE_NAME = 'myapp'
+        DOCKER_BUILD_TAG = "${env.BUILD_ID}"
+        REGISTRY_CREDENTIALS_ID = credentials ('DockerHub-creds') // ID delle credenziali Docker salvate in Jenkins
+    }
+
+    stages {
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    // Definizione della funzione
+                    def buildAndPushTag = ( Map args )
+                        def defaults = [
+                            registryUrl: env.DOCKER_REGISTRY,
+                            dockerfileDir: "./app",
+                            dockerfileName: "Dockerfile",
+                            buildArgs: "",
+                            pushLatest: true
+                        ]
+                        args = defaults + args
+                        docker.withRegistry(args.registryUrl, env.REGISTRY_CREDENTIALS_ID) {
+                            def image = docker.build(args.image, "${args.buildArgs} ${args.dockerfileDir} -f ${args.dockerfileName}")
+                            image.push(args.buildTag)
+                            if (args.pushLatest) {
+                                image.push("latest")
+                                sh "docker rmi --force ${args.image}:latest"
+                            }
+                            sh "docker rmi --force ${args.image}:${args.buildTag}"
+                            return "${args.image}:${args.buildTag}"
+                        }
+                    }
+
+                    // Chiamata della funzione
+                    buildAndPushTag(image: env.DOCKER_IMAGE_NAME, buildTag: env.DOCKER_BUILD_TAG)
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completata'
+        }
+        failure {
+            echo 'Errore nella pipeline!'
+        }
+    }
+}
