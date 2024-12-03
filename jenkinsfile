@@ -27,7 +27,6 @@ pipeline {
         DOCKER_REGISTRY = 'docker.io/t0mx2as0'
         DOCKER_IMAGE_NAME = 'myapp'
         DOCKER_BUILD_TAG = "${env.BUILD_ID}"
-        #REGISTRY_CREDENTIALS_ID = credentials ('DockerHub-creds') // ID delle credenziali Docker salvate in Jenkins
     }
 
     stages {
