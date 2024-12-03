@@ -1,7 +1,7 @@
 // Definizione della funzione                
 def buildAndPushTag(Map args) {
     def defaults = [
-        registryUrl: "registry.hub.docker.com",
+        registryUrl: "https://registry.hub.docker.com",
         dockerfileDir: "./app",
         dockerfileName: "Dockerfile",
         buildArgs: "",
