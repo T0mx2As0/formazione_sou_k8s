@@ -6,7 +6,7 @@ def buildAndPushTag(Map args) {
         dockerfileDir: "./app",
         dockerfileName: "Dockerfile",
         buildArgs: "",
-        pushLatest: true
+        pushLatest: false
     ]
     args = defaults + args
     docker.withRegistry(args.registryUrl, 'DockerHub-creds') {
