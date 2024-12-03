@@ -15,7 +15,7 @@ pipeline {
                     // Definizione della funzione
                     def buildAndPushTag(Map args) {
                         def defaults = [
-                            registryUrl: env.DOCKER_REGISTRY,
+                            registryUrl: "{env.DOCKER_REGISTRY}",
                             dockerfileDir: "./app",
                             dockerfileName: "Dockerfile",
                             buildArgs: "",
