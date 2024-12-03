@@ -17,7 +17,7 @@ def buildAndPushTag(Map args) {
             }
         sh "docker rmi --force ${args.image}:${args.buildTag}"
         return "${args.image}:${args.buildTag}"
-        }
+    }
 }
 
 pipeline {
@@ -42,9 +42,6 @@ pipeline {
     }
 
     post {
-        always {
-            echo 'Pipeline completata'
-        }
         failure {
             echo 'Errore nella pipeline!'
         }
