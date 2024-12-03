@@ -2,6 +2,7 @@
 def buildAndPushTag(Map args) {
     def defaults = [
         registryUrl: "https://registry.hub.docker.com",
+        repository: "t0mx2as0/modulo_form"
         dockerfileDir: "./app",
         dockerfileName: "Dockerfile",
         buildArgs: "",
@@ -9,7 +10,7 @@ def buildAndPushTag(Map args) {
     ]
     args = defaults + args
     docker.withRegistry(args.registryUrl, 'DockerHub-creds') {
-        def image = docker.build(args.image, "${args.buildArgs} ${args.dockerfileDir}")
+        def image = docker.build(args.image, "${args.buildArgs} ${args.dockerfileDir} -t ${args.repository}")
             image.push(args.buildTag)
             if (args.pushLatest) {
                 image.push("latest")x
