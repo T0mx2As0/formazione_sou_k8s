@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     // Definizione della funzione
-                    def buildAndPushTag = (Map args) {
+                    def buildAndPushTag (Map args) {
                         def defaults = [
                             registryUrl: env.DOCKER_REGISTRY,
                             dockerfileDir: "./app",
