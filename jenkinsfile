@@ -11,7 +11,7 @@ def buildAndPushTag(Map args) {
     args = defaults + args
     docker.withRegistry(args.registryUrl, 'DockerHub-creds') {
         def image = docker.build(args.image, "${args.buildArgs} ${args.dockerfileDir} -t ${args.repository}")
-            image.push("(args.image):{args.buildTag}")
+            image.push("${args.image}:{args.buildTag}")
             if (args.pushLatest) {
                 image.push("latest")
                 sh "docker rmi --force ${args.image}:latest"
