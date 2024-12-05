@@ -37,8 +37,10 @@ pipeline {
             }
         }
         stage ('Helm install') {
-            script {
-                sh 'helm install webapp ./charts/webapp'
+            steps {
+                script {
+                    sh 'helm install webapp ./charts/webapp'
+                }
             }
         }
     }
