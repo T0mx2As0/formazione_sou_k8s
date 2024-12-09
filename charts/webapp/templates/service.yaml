@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapp
+  name: "{{ .Release.Name }}-service"
+  namespace: formazione-sou
   labels:
-    app: webapp
+    app: {{ .Release.Name }}
 spec:
-  type: NodePort
+  type: {{ .Values.service.type }}
   ports:
-    - port: 8000
+    - port: {{ .Values.service.port }}
       targetPort: 8000
-      protocol: TCP
-      name: http
   selector:
-    app: webapp
+    app: {{ .Release.Name }}
