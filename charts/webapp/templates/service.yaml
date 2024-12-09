@@ -9,6 +9,6 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: 8000
+#      targetPort: 8000
   selector:
     app: {{ .Release.Name }}
